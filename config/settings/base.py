@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Internal
     'accounts.apps.AccountsConfig',
+    'trips',
     # External
 ]
 
