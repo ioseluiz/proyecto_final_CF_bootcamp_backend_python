@@ -20,11 +20,5 @@ class TerminalFactory(factory.django.DjangoModelFactory):
 
     name = "TestName"
 
-# class RouteFactory(factory.django.DjangoModelFactory):
-#     class Meta:
-#         model = Route
-    
-#     distance = 300.59
-#     duration = 4.2
 
     
