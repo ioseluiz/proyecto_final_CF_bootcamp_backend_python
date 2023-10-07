@@ -1,9 +1,11 @@
 from django.db import models
 
-class Route(models.Model):
-    pass
+
 class Terminal(models.Model):
     name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
 
 class Route(models.Model):
     distance = models.DecimalField(max_digits=10,decimal_places=2)
