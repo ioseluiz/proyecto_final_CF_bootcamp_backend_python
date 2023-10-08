@@ -1,3 +1,18 @@
-body {
-    background-color: blueviolet;
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,500;0,600;0,700;0,900;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+
+.test {
+    font-family: 'Barlow', sans-serif;
+    font-family: 'Merriweather', serif;
+    font-family: 'Archivo', serif;
+}
+
+html, body {
+    font-family: 'Barlow', sans-serif;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #008080;
 }
