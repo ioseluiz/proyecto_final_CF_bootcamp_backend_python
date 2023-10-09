@@ -1,0 +1,83 @@
+body {
+    color: #fff;
+    background: #008080;
+    font-family: 'Roboto', sans-serif;
+}
+
+.form-control, .form-control:focus, .input-group-text {
+    border-color: #e1e1e1;
+}
+.form-control, .btn {        
+    border-radius: 3px;
+}
+.login-form {
+    width: 460px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.login-form form {
+    color: #999;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    background: #fff;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    color: #333;
+    font-weight: bold;
+    margin-top: 0;
+}
+.login-form hr {
+    margin: 0 -30px 20px;
+}
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+.login-form label {
+    font-weight: normal;
+    font-size: 13px;
+}
+.login-form .form-control {
+    min-height: 38px;
+    box-shadow: none !important;
+}
+
+.login-form .input-group-text {
+    max-width: 42px;
+    min-height: 38px;
+    text-align: center;
+}
+
+.login-form .btn{        
+    font-size: 16px;
+    font-weight: bold;
+    background: #008080;
+    border: none;
+    min-width: 140px;
+}
+.login-form .btn:hover, .signup-form .btn:focus {
+    background: #179b81;
+    outline: none;
+}
+.login-form a {
+    color: #fff;	
+    text-decoration: underline;
+}
+.login-form a:hover {
+    text-decoration: none;
+}
+.login-form form a {
+    color: #008080;
+    text-decoration: none;
+}	
+.login-form form a:hover {
+    text-decoration: underline;
+}
+.login-form .fa {
+    font-size: 20px;
+}
+.login-form .fa-lock{
+    position:relative;
+}
+
