@@ -1,0 +1,23 @@
+{% load static %}
+<div class="border-bottom border-1 border-dark">
+    <div class="container ">
+        <h1 class="display-1">Compra tus Boletos Aqui!</h1>
+        <p>Compra online tus boletos de bus y viaja por todo el pais.</p>
+        <form class="search-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label >Hacia</label>
+                {{form.name_from}}
+            </div>
+            <div class="form-group">
+                <label >Desde</label>
+                {{form.name_to}}
+            </div>
+            <div class=form-group>
+                <label >Fecha</label>
+                <input type="date" class="form-control mb-2 mr-sm-2" placeholder="Fecha">
+            </div>
+            <button class="btn btn-primary">Buscar</button>
+          </form>
+    </div>
+</div>
