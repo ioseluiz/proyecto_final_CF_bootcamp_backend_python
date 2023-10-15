@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
+{% block custom_style %}
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}">
+{% endblock custom_style %}
 {% block title %}Index Page{% endblock title %}
 {% block content %}
 {% include 'base/navbar.html' %}
