@@ -1,23 +1,26 @@
-{% load static %}
-<div class="border-bottom border-1 border-dark">
+
+<div class="border-bottom border-1 border-dark p-3 m-3">
     <div class="container ">
         <h1 class="display-1">Compra tus Boletos Aqui!</h1>
         <p>Compra online tus boletos de bus y viaja por todo el pais.</p>
-        <form class="search-form">
+        <form class="row">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="col-3">
                 <label >Hacia</label>
                 {{form.name_from}}
             </div>
-            <div class="form-group">
+            <div class="col-3">
                 <label >Desde</label>
                 {{form.name_to}}
             </div>
-            <div class=form-group>
+            <div class="col-3">
                 <label >Fecha</label>
-                <input type="date" class="form-control mb-2 mr-sm-2" placeholder="Fecha">
+                <input type="date" class="" placeholder="Fecha">
             </div>
-            <button class="btn btn-primary">Buscar</button>
+            <div class="col-3">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            
           </form>
     </div>
 </div>

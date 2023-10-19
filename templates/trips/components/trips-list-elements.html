@@ -1,0 +1,23 @@
+
+{% for trip in trips %}
+    <div class="card  p-3  pb-sm m-3 ">
+        <div class="row">
+            <div class="col-2">
+                <i class="fa fa-bus fa-lg" aria-hidden="true"></i>
+                <p>{{ trip.date}}</p>
+            </div>
+            <div class="col-2">
+                <p>Salida</p>
+                {{ trip.origin}}
+            </div>
+            <div class="col-2"><p>Llegada</p>{{trip.destination}}</div>
+            <div class="col-2"><p>Duracion</p>{{trip.duration}} horas</div>
+            <div class="col-2"><p>Precio</p>${{trip.price}}</div>
+            <div class="col-2">
+                <span><strong>{{trip.available_seats}}</strong></span> Asientos Disponibles
+                <button btn btn-primary>VER</button>
+            </div>
+        </div>
+        
+    </div>
+    {%  endfor %}

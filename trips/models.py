@@ -58,9 +58,6 @@ class Trip(models.Model):
         duration = self.route.duration
         return self.departure_time + timedelta(hours=duration)
 
-
-    
-
     def __str__(self):
         return f"Trip scheduled for {self.departure_time} for Route {self.route}"
     
