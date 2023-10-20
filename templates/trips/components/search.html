@@ -3,7 +3,7 @@
     <div class="container ">
         <h1 class="display-1">Compra tus Boletos Aqui!</h1>
         <p>Compra online tus boletos de bus y viaja por todo el pais.</p>
-        <form class="row">
+        <form class="row" hx-post="{% url 'search-results' %}" hx-target="#results" hx-swap="innerHTML">
             {% csrf_token %}
             <div class="col-3">
                 <label >Hacia</label>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-3">
                 <label >Fecha</label>
-                <input type="date" class="" placeholder="Fecha">
+                <input name="date"type="date" class="" placeholder="Fecha">
             </div>
             <div class="col-3">
                 <button class="btn btn-primary">Buscar</button>
