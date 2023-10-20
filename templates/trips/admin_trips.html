@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block custom_style %}
+
+{% endblock custom_style %}
+{% block title %}Trips Admin{% endblock title %}
+{% block content %}
+{% include 'base/navbar.html' %}
+
+
+
+<div class="container">
+    <h3>Trips Admin Panel</h3>
+    <form action="">
+        <div class="mb-3">
+            <label for="" class="form-label">Date</label>
+            <input type="date" class="form-control" id="trip_date">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Departure Time</label>
+            <input type="time" class="form-control" id="trip_departure">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Rote</label>
+            <select  class="form-select" name="" id="trip_route">
+                <option selected>Seleccione la Ruta</option>
+                {% for route in routes %}
+                <option value="{{ route }}">{{ route }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Bus</label>
+            <select class="form-select" name="" id="trip_bus">
+                <option selected>Seleccione el Bus</option>
+                {% for bus in buses %}
+                <option value="{{ bus }}">{{ bus }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">ADD</button>
+    </form>
+
+    <table class="table">
+        <tr>
+            <thead>
+
+                <th>DateTime</th>
+                <th>Route</th>
+                <th>Bus</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trip in trips %}
+            <tr>
+                <td>{{ trip.departure_time }}</td>
+                <td>{{ trip.route }}</td>
+                <td>{{ trip.bus }}</td>
+                <td><button>EDIT</button><button>DELETE</button></td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    
+</div>
+{% endblock content %}

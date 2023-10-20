@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage
 
-from .models import Trip, SeatTrip, Terminal, Route
+from .models import Trip, SeatTrip, Route, Bus
 
 from .forms import SearchForm
 
@@ -11,9 +11,6 @@ def home_view(request):
 
     context = { }
 
-    # if a GET method we'll create a blank form
-   
-   
     form = SearchForm()
     context['form'] = form
     
@@ -57,8 +54,31 @@ def search_results_view(request, *args, **kwargs):
 
     context['trips'] = trip_data
 
-
-    
     return render(request, 'trips/components/trips-list-elements.html', context)
+
+def trips_admin_view(request):
+    context = { }
+    routes = Route.objects.all()
+    buses = Bus.objects.all()
+    trips = Trip.objects.all()
+    context['routes'] = routes
+    context['buses'] = buses
+    context['trips'] = trips
+    return render(request, 'trips/admin_trips.html',context)
+
+
+def list_trips(request):
+    pass
+
+
+def create_trip(request):
+    pass
+
+def update_trip(request):
+    pass
+
+def delete_trip(request):
+    pass
+
 
 
