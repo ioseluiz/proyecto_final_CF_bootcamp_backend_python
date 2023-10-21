@@ -11,44 +11,42 @@
 
 <div class="container">
     <h3>Trips Admin Panel</h3>
-    <form action="">
+    <form action="" method="post" hx-post="{% url 'trip-create' %}"
+    hx-target="#table-trips" hx-swap="outerHTML">
         <div class="mb-3">
-            <label for="" class="form-label">Date</label>
-            <input type="date" class="form-control" id="trip_date">
+            <label for="" class="form-label">Date & Time</label>
+            <input type="datetime-local" name="trip_datetime" class="form-control" id="trip_datetime">
         </div>
         <div class="mb-3">
-            <label for="" class="form-label">Departure Time</label>
-            <input type="time" class="form-control" id="trip_departure">
-        </div>
-        <div class="mb-3">
-            <label for="" class="form-label">Rote</label>
-            <select  class="form-select" name="" id="trip_route">
+            <label for="" class="form-label">Route</label>
+            <select  class="form-select" name="trip_route" id="trip_route">
                 <option selected>Seleccione la Ruta</option>
                 {% for route in routes %}
-                <option value="{{ route }}">{{ route }}</option>
+                <option value="{{ route.id }}">{{ route }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Bus</label>
-            <select class="form-select" name="" id="trip_bus">
+            <select class="form-select" name="trip_bus" id="trip_bus">
                 <option selected>Seleccione el Bus</option>
                 {% for bus in buses %}
-                <option value="{{ bus }}">{{ bus }}</option>
+                <option value="{{ bus.id }}">{{ bus }}</option>
                 {% endfor %}
             </select>
         </div>
         <button type="submit" class="btn btn-primary">ADD</button>
     </form>
-
-    <table class="table">
+    
+    <table class="table" id="table-trips">
+        
         <tr>
             <thead>
-
+    
                 <th>DateTime</th>
                 <th>Route</th>
                 <th>Bus</th>
-                <th>Edit</th>
+                <th>Edit/Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -57,13 +55,23 @@
                 <td>{{ trip.departure_time }}</td>
                 <td>{{ trip.route }}</td>
                 <td>{{ trip.bus }}</td>
-                <td><button>EDIT</button><button>DELETE</button></td>
-
+                <td><i class="fa fa-pencil btn btn-primary"
+                       aria-hidden="true"
+                        ></i>
+                    <i class="fa fa-trash btn btn-danger" 
+                       hx-delete="{% url 'trip-delete' trip.id %}"
+                       hx-target="#table-trips"
+                       hx-swap="outerHTML"
+                       aria-hidden="true"></i>
+                </td>
+    
             </tr>
             {% endfor %}
         </tbody>
-
+    
     </table>
+
+    
     
 </div>
 {% endblock content %}

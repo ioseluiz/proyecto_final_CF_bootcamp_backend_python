@@ -56,6 +56,11 @@ def search_results_view(request, *args, **kwargs):
 
     return render(request, 'trips/components/trips-list-elements.html', context)
 
+
+# CRUD Model Route
+
+
+# CRUD Model Trips
 def trips_admin_view(request):
     context = { }
     routes = Route.objects.all()
@@ -67,18 +72,50 @@ def trips_admin_view(request):
     return render(request, 'trips/admin_trips.html',context)
 
 
-def list_trips(request):
+def get_trip(request):
     pass
+    
 
 
 def create_trip(request):
-    pass
+    context = {}
+    if request.POST:
+        # Read parameters
+        trip_datetime = request.POST.get('trip_datetime') #str
+        print(trip_datetime)
+        trip_datetime = datetime.strptime(trip_datetime, '%Y-%m-%dT%H:%M')
+        trip_route = request.POST.get('trip_route')
+        trip_route = Route.objects.get(id=trip_route)
+        print(trip_route)
+        trip_bus = request.POST.get('trip_bus')
+        trip_bus = Bus.objects.get(id=trip_bus)
+        # data = {
+        #     'departure_time': trip_datetime,
+        #     'route': trip_route,
+        #     'trip_bus': trip_bus,
+        # }
+        # print(data)
+        
+        Trip.objects.create(departure_time=trip_datetime,
+                            route=trip_route,
+                            bus=trip_bus)
+        
+        trips = Trip.objects.all()
+        context['trips'] = trips
+        return render(request, 'trips/components/table-trips.html',context)
+        
 
-def update_trip(request):
-    pass
+# def update_trip(request, pk):
+#     trip = Trip.objects.get(id=pk)
+#     if request.method == "PUT":
+        
+#         pass
 
-def delete_trip(request):
-    pass
+def delete_trip(request, pk):
+    Trip.objects.get(id=pk).delete()
+    trips = Trip.objects.all()
+    context = {'trips': trips}
+    return render(request, "trips/components/table-trips.html",context)
 
 
 

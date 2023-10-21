@@ -1,0 +1,30 @@
+<table class="table" id="table-trips">
+        
+    <tr>
+        <thead>
+
+            <th>DateTime</th>
+            <th>Route</th>
+            <th>Bus</th>
+            <th>Edit/Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trip in trips %}
+        <tr>
+            <td>{{ trip.departure_time }}</td>
+            <td>{{ trip.route }}</td>
+            <td>{{ trip.bus }}</td>
+            <td><i class="fa fa-pencil btn btn-primary" aria-hidden="true"></i>
+                <i class="fa fa-trash btn btn-danger" 
+                   hx-delete="{% url 'trip-delete' trip.id %}"
+                   hx-target="#table-trips"
+                   hx-swap="outerHTML"
+                   aria-hidden="true"></i>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
