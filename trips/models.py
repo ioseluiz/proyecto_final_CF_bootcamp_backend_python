@@ -77,7 +77,7 @@ class Trip(models.Model):
         return self.departure_time + timedelta(hours=duration)
 
     def __str__(self):
-        return f"Trip scheduled for {self.departure_time} for Route {self.route}"
+        return f"Trip: {self.bus.license_plate} - {self.departure_time} for Route {self.route}"
     
 class SeatTrip(models.Model):
     seat = models.ForeignKey(Seat,on_delete=models.CASCADE, related_name="seat_bus")
