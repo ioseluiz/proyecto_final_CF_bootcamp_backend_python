@@ -15,7 +15,10 @@
             <td>{{ trip.departure_time }}</td>
             <td>{{ trip.route }}</td>
             <td>{{ trip.bus }}</td>
-            <td><i class="fa fa-pencil btn btn-primary" aria-hidden="true"></i>
+            <td><i class="fa fa-pencil btn btn-primary"
+                   aria-hidden="true"></i>
+                   
+                   
                 <i class="fa fa-trash btn btn-danger" 
                    hx-delete="{% url 'trip-delete' trip.id %}"
                    hx-target="#table-trips"

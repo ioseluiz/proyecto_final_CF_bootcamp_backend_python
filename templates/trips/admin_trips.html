@@ -5,6 +5,9 @@
 {% endblock custom_style %}
 {% block title %}Trips Admin{% endblock title %}
 {% block content %}
+{% block custom_style %}
+
+{% endblock custom_style %}
 {% include 'base/navbar.html' %}
 
 
@@ -56,13 +59,13 @@
                 <td>{{ trip.route }}</td>
                 <td>{{ trip.bus }}</td>
                 <td><i class="fa fa-pencil btn btn-primary"
-                       aria-hidden="true"
-                        ></i>
+                       aria-hidden="true"></i>
                     <i class="fa fa-trash btn btn-danger" 
                        hx-delete="{% url 'trip-delete' trip.id %}"
+                       hx-confirm="¿Esta seguro que desea borrar este viaje?"
                        hx-target="#table-trips"
                        hx-swap="outerHTML"
-                       aria-hidden="true"></i>
+                       aria-hidden="true"></i>{{trip.id}}
                 </td>
     
             </tr>
@@ -70,8 +73,8 @@
         </tbody>
     
     </table>
-
-    
-    
 </div>
+
+
+
 {% endblock content %}

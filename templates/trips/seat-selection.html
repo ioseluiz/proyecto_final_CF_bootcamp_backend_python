@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block custom_style %}
+<link rel="stylesheet" href="{% static 'css/seats/selection.css' %}">
+{% endblock custom_style %}
+{% block title %}Select Seat{% endblock title %}
+{% block content %}
+{% include 'base/navbar.html' %}
+
+
+<div class="header">
+    <h3>Seat Selection</h3>
+    <p>Ruta: {{trip.route}}</p>
+    <p>Salida: {{trip.departure_time}}</p>
+</div>
+
+{% for row in rows %}
+<div class="row">
+    <div class="seat">{{row.letter}}</div>
+    {% if row.count == 4 %}
+    {% for x in row.seats %}
+        {% if x.seat.seat_number == 2 %}
+        <div class="seat">
+            <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
+            <input  type="checkbox" name=""  class="seat"id="">
+        </div>
+        <div class="seat">
+            <label   class="hide" for="">x</label>
+            <input class="hide" type="checkbox" name=""  class="seat"id="">
+        </div>
+        {% else %}
+        <div class="seat">
+            <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
+            <input type="checkbox" name=""  class="seat"id="">
+        </div>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+    {% for x in row.seats %}
+        <div class="seat ">
+            <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
+            <input type="checkbox" name=""  class="seat"id="">
+        </div>
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+{% endfor %}
+
+
+{% endblock content %}

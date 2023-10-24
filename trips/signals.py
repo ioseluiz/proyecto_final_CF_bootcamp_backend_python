@@ -7,8 +7,18 @@ from trips.models import Bus, Seat, Trip, SeatTrip
 # Autogenerate seats instances when a bus instance is created
 @receiver(post_save, sender=Bus)
 def create_bus_seats(sender, instance,created, **kwargs):
+    seats = []
+    rows = ["A","B","C","D","E","F","G","H","I","J","K","L","M"]
     if created:
-        Seat.objects.bulk_create([Seat(seat_number=x,bus=instance) for x in range(1,instance.total_seats + 1)])
+        for i in range(1,14):
+            if i<13:
+                for j in range(1,5):
+                    seats.append(Seat(seat_number=j, row=rows[i-1], bus=instance))
+            else:
+                for j in range(1,6):
+                    seats.append(Seat(seat_number=j, row=rows[i-1], bus=instance))
+        Seat.objects.bulk_create(seats)
+        #Seat.objects.bulk_create([Seat(seat_number=x,bus=instance) for x in range(1,instance.total_seats + 1)])
         print("Bus creado exitosamente...por lo tanto se crean los asientos correspondientes...")
     else:
         print("Bus updated")

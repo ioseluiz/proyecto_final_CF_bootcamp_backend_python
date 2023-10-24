@@ -8,13 +8,9 @@ from .models import Trip, SeatTrip, Route, Bus
 from .forms import SearchForm
 
 def home_view(request):
-
     context = { }
-
     form = SearchForm()
     context['form'] = form
-    
-
     return render(request, "trips/index.html",context)
 
 
@@ -28,20 +24,21 @@ def search_results_view(request, *args, **kwargs):
     date_requested = request.POST.get('date') #str
     # Convert str to datetime
     date_requested = datetime.strptime(date_requested,"%Y-%m-%d").date()
-    print(date_requested)
-    print(type(date_requested))
+    #print(date_requested)
+    #print(type(date_requested))
     # Get route from terminal_from and terminal_to
     route = Route.objects.get(origin=terminal_from, destination=terminal_to)
-    print(route)
+    #print(route)
     # Get trips for that route
     trips = Trip.objects.filter(route=route, departure_time__date=date_requested)
-    print(trips)
+    #print(trips)
 
     for trip in trips:
         date = trip.departure_time.date()
         departure = trip.departure_time.time()
 
         info = {
+            'id': trip.id,
             'date': date,
             'departure_time': departure,
             'origin': trip.route.origin,
@@ -89,13 +86,6 @@ def create_trip(request):
         print(trip_route)
         trip_bus = request.POST.get('trip_bus')
         trip_bus = Bus.objects.get(id=trip_bus)
-        # data = {
-        #     'departure_time': trip_datetime,
-        #     'route': trip_route,
-        #     'trip_bus': trip_bus,
-        # }
-        # print(data)
-        
         Trip.objects.create(departure_time=trip_datetime,
                             route=trip_route,
                             bus=trip_bus)
@@ -105,17 +95,44 @@ def create_trip(request):
         return render(request, 'trips/components/table-trips.html',context)
         
 
-# def update_trip(request, pk):
-#     trip = Trip.objects.get(id=pk)
-#     if request.method == "PUT":
-        
-#         pass
+def update_trip(request, pk):
+    print(pk)
+    context = {}
+    try:
+        trip = Trip.objects.get(id=pk)
+    except:
+        raise "Trip not found"
+    
+    context['trip'] = trip
+    return render(request, 'trips/components/trip_edit.html',context)
 
 def delete_trip(request, pk):
     Trip.objects.get(id=pk).delete()
     trips = Trip.objects.all()
     context = {'trips': trips}
     return render(request, "trips/components/table-trips.html",context)
+
+def select_seat(request, pk):
+    context = {}
+    row_seat = {}
+    rows = []
+    
+    trip = Trip.objects.get(id=pk)
+    # Get the tickets for the trip
+    rows_letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M"]
+    for row in rows_letters:
+        seat_trip = SeatTrip.objects.filter(trip=trip)
+        result = seat_trip.filter(seat__row=row)
+        info = {
+            'seats':result,
+            'count': len(result),
+            'letter': row,
+        }
+        rows.append(info)
+    print(rows)
+    context['trip'] = trip
+    context['rows'] = rows
+    return render(request, "trips/seat-selection.html", context)
 
 
 

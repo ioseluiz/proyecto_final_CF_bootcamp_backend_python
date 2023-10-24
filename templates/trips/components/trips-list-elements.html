@@ -16,7 +16,8 @@
             <div class="col-2"><p>Precio</p>${{trip.price}}</div>
             <div class="col-2">
                 <span><strong>{{trip.available_seats}}</strong></span> Asientos Disponibles
-                <button class="btn btn-primary">VER</button>
+                <a href="{% url 'select-seat' trip.id %}" >
+                    <button class="btn btn-primary">VER</button></a>
             </div>
         </div>
         
