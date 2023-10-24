@@ -8,15 +8,16 @@
 {% include 'base/navbar.html' %}
 
 
-<div class="header">
+<div class="header mb-3">
     <h3>Seleccione su asiento</h3>
     <p>Ruta: {{trip.route}}</p>
     <p>Salida: {{trip.departure_time}}</p>
+    <button class="btn btn-primary" >CONTINUAR</button>
 </div>
 
 {% for row in rows %}
 <div class="row">
-    <div class="seat">{{row.letter}}</div>
+    <div class="seat"></div>
     {% if row.count == 4 %}
     {% for x in row.seats %}
         {% if x.seat.seat_number == 2 %}
@@ -26,7 +27,7 @@
             {% else %}
             <input  type="checkbox" name=""  class="seat-check">
             {% endif %}
-            <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
+            <label class="seat-text" for=""> {{row.letter}}{{x.seat.seat_number}}</label>
         </div>
         <div class="seat">
             <input class="hide" type="checkbox" name=""  class="seat-check hidden">
@@ -39,7 +40,7 @@
             {% else %}
             <input  type="checkbox" name=""  class="seat-check">
             {% endif %}
-            <label class="seat-text"> {{x.seat.seat_number}}</label>
+            <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
         </div>
         {% endif %}
         {% endfor %}
@@ -51,7 +52,7 @@
             {% else %}
             <input  type="checkbox" name=""  class="seat-check">
             {% endif %}
-            <label class="seat-text"> {{x.seat.seat_number}}</label>
+            <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
         </div>
         {% endfor %}
 
@@ -61,5 +62,5 @@
 
 {% endfor %}
 
-
+{% include 'base/footer.html' %}
 {% endblock content %}
