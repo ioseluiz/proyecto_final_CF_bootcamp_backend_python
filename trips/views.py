@@ -123,13 +123,17 @@ def select_seat(request, pk):
     for row in rows_letters:
         seat_trip = SeatTrip.objects.filter(trip=trip)
         result = seat_trip.filter(seat__row=row)
+        #print(result)
+        for re in result:
+            if re.is_sold:
+                print(f"{re.trip.departure_time}:{re.seat}")
         info = {
             'seats':result,
             'count': len(result),
             'letter': row,
         }
         rows.append(info)
-    print(rows)
+    
     context['trip'] = trip
     context['rows'] = rows
     return render(request, "trips/seat-selection.html", context)

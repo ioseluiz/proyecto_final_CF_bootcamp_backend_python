@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block custom_style %}
-<link rel="stylesheet" href="{% static 'css/seats/selection.css' %}">
+
 {% endblock custom_style %}
 {% block title %}Select Seat{% endblock title %}
 {% block content %}
@@ -9,7 +9,7 @@
 
 
 <div class="header">
-    <h3>Seat Selection</h3>
+    <h3>Seleccione su asiento</h3>
     <p>Ruta: {{trip.route}}</p>
     <p>Salida: {{trip.departure_time}}</p>
 </div>
@@ -21,16 +21,24 @@
     {% for x in row.seats %}
         {% if x.seat.seat_number == 2 %}
         <div class="seat">
+            {% if x.is_sold == True %}
+            <input  type="checkbox" name=""  class="seat-check disabled" disabled>
+            {% else %}
             <input  type="checkbox" name=""  class="seat-check">
+            {% endif %}
             <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
         </div>
         <div class="seat">
-            <input class="hide" type="checkbox" name=""  class="seat-check">
+            <input class="hide" type="checkbox" name=""  class="seat-check hidden">
             <label   class="seat-text" for=""></label>
         </div>
         {% else %}
         <div class="seat">
-            <input type="checkbox"   class="seat-check">
+            {% if x.is_sold == True %}
+            <input  type="checkbox" name=""  class="seat-check disabled" disabled>
+            {% else %}
+            <input  type="checkbox" name=""  class="seat-check">
+            {% endif %}
             <label class="seat-text"> {{x.seat.seat_number}}</label>
         </div>
         {% endif %}
@@ -38,7 +46,11 @@
     {% else %}
     {% for x in row.seats %}
         <div class="seat ">
-            <input type="checkbox" class="seat-check">
+            {% if x.is_sold == True %}
+            <input  type="checkbox" name=""  class="seat-check disabled" disabled>
+            {% else %}
+            <input  type="checkbox" name=""  class="seat-check">
+            {% endif %}
             <label class="seat-text"> {{x.seat.seat_number}}</label>
         </div>
         {% endfor %}

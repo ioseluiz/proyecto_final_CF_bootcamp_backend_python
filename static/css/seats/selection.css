@@ -23,7 +23,7 @@
     position:relative;
 }
 
-.seat-check{
+input[type="checkbox"]{
     display:flex;
     flex-direction: row;
     align-items: center;
@@ -35,14 +35,19 @@
     position:absolute;
     z-index: 9;
     opacity:0.2;
-
-}
-
-input[type="checkbox"]{
     -webkit-appearance: initial;
     appearance:initial;
     border:none;
     background: gray;
+}
+.seat-check.disabled{
+    background:red
+}
+.seat-check.hidden{
+    visibility: hidden;
+}
+.hide{
+    visibility: hidden;
 }
 .seat-text{
     position:relative;
