@@ -22,11 +22,32 @@
     padding:2px;
     position:relative;
 }
-.seat-text{
+
+.seat-check{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height:40px;
+    width:40px;
+    margin:5px;
+    padding:2px;
     position:absolute;
     z-index: 9;
+    opacity:0.2;
+
 }
 
-.hide{
-   visibility:hidden;
+input[type="checkbox"]{
+    -webkit-appearance: initial;
+    appearance:initial;
+    border:none;
+    background: gray;
+}
+.seat-text{
+    position:relative;
+}
+
+input[type="checkbox"]:checked{
+    background-color: green;
 }

@@ -21,25 +21,25 @@
     {% for x in row.seats %}
         {% if x.seat.seat_number == 2 %}
         <div class="seat">
+            <input  type="checkbox" name=""  class="seat-check">
             <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
-            <input  type="checkbox" name=""  class="seat"id="">
         </div>
         <div class="seat">
-            <label   class="hide" for="">x</label>
-            <input class="hide" type="checkbox" name=""  class="seat"id="">
+            <input class="hide" type="checkbox" name=""  class="seat-check">
+            <label   class="seat-text" for=""></label>
         </div>
         {% else %}
         <div class="seat">
-            <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
-            <input type="checkbox" name=""  class="seat"id="">
+            <input type="checkbox"   class="seat-check">
+            <label class="seat-text"> {{x.seat.seat_number}}</label>
         </div>
         {% endif %}
         {% endfor %}
     {% else %}
     {% for x in row.seats %}
         <div class="seat ">
-            <label class="seat-text" for=""> {{x.seat.seat_number}}</label>
-            <input type="checkbox" name=""  class="seat"id="">
+            <input type="checkbox" class="seat-check">
+            <label class="seat-text"> {{x.seat.seat_number}}</label>
         </div>
         {% endfor %}
 
