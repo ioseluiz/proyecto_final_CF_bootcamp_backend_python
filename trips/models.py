@@ -6,7 +6,7 @@ from django.utils.timezone import now
 BUS_TYPES = (
     (53,53),
 )
-
+ 
 class Company(models.Model):
     name = models.CharField(max_length=30, unique=True)
     phone_number = models.CharField(max_length=8)
