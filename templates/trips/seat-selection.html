@@ -5,7 +5,7 @@
 {% endblock custom_style %}
 {% block title %}Select Seat{% endblock title %}
 {% block content %}
-{% include 'base/navbar.html' %}
+
 
 
 
@@ -29,9 +29,9 @@
             <div class="seat">
                 <label class="seat-text" for=""> {{row.letter}}{{x.seat.seat_number}}</label>
                 {% if x.is_sold == True %}
-                <input  type="checkbox" onclick=buttonSelected() id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check disabled" disabled>
+                <input  type="checkbox" onclick=btnSelected() id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check disabled" disabled>
                 {% else %}
-                <input  type="checkbox" onclick=buttonSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check" >
+                <input  type="checkbox" onclick=btnSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check" >
                 {% endif %}
                 
             </div>
@@ -42,9 +42,9 @@
             {% else %}
             <div class="seat">
                 {% if x.is_sold == True %}
-                <input  type="checkbox" onclick=buttonSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
+                <input  type="checkbox" onclick=btnSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
                 {% else %}
-                <input  type="checkbox" onclick=buttonSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check">
+                <input  type="checkbox" onclick=btnSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check">
                 {% endif %}
                 <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
             </div>
@@ -54,9 +54,9 @@
         {% for x in row.seats %}
             <div class="seat">
                 {% if x.is_sold == True %}
-                <input  type="checkbox" onclick=buttonSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
+                <input  type="checkbox" onclick=btnSelected() id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
                 {% else %}
-                <input  type="checkbox" onclick=buttonSelected() id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check">
+                <input  type="checkbox" onclick=btnSelected() id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check">
                 {% endif %}
                 <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
             </div>
@@ -75,7 +75,7 @@
 <script>
 
    
-    const buttonSelected = e => {
+    const btnSelected = e => {
         //Check if there is at least one check button selected
         const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
         console.log(checkedBoxes);

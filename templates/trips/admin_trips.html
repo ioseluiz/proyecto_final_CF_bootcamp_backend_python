@@ -6,9 +6,6 @@
 {% block title %}Trips Admin{% endblock title %}
 {% block content %}
 
-{% include 'base/navbar.html' %}
-
-
 
 <div class="container">
     <h3>Trips Admin Panel</h3>
@@ -63,7 +60,7 @@
                        hx-confirm="¿Esta seguro que desea borrar este viaje?"
                        hx-target="#table-trips"
                        hx-swap="outerHTML"
-                       aria-hidden="true"></i>{{trip.id}}
+                       aria-hidden="true"></i>
                 </td>
     
             </tr>

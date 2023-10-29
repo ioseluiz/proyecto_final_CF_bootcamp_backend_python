@@ -4,8 +4,9 @@
 {% block custom_style %}
 <link rel="stylesheet" href="{% static 'css/register/login.css' %}">
 {% endblock custom_style %}
+
 {% block content %}
-{% include 'base/navbar.html' %}
+
 <div class="login-form">
     <form method="post">
         {% csrf_token %}

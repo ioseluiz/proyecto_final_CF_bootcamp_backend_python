@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.core.paginator import Paginator, EmptyPage
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .models import Trip, SeatTrip, Route, Bus
 
@@ -58,6 +58,7 @@ def search_results_view(request, *args, **kwargs):
 
 
 # CRUD Model Trips
+@user_passes_test(lambda user: user.is_superuser)
 def trips_admin_view(request):
     context = { }
     routes = Route.objects.all()
@@ -112,6 +113,7 @@ def delete_trip(request, pk):
     context = {'trips': trips}
     return render(request, "trips/components/table-trips.html",context)
 
+@login_required
 def select_seat(request, pk):
     context = {}
     row_seat = {}
@@ -137,6 +139,7 @@ def select_seat(request, pk):
     context['trip'] = trip
     context['rows'] = rows
     return render(request, "trips/seat-selection.html", context)
+
 
 def payment_view(request, pk):
     context = {}
