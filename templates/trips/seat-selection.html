@@ -8,69 +8,75 @@
 {% include 'base/navbar.html' %}
 
 
-<div class="header mb-3">
-    <h3>Seleccione su asiento</h3>
-    <p>Ruta: {{trip.route}}</p>
-    <p>Salida: {{trip.departure_time}}</p>
-    <p  >Asientos Seleccionados: <span id="selected-seats"></span></p>
-    <button class="btn btn-primary" >CONTINUAR</button>
-</div>
 
-{% for row in rows %}
-<div class="row">
-    
-    {% if row.count == 4 %}
-    {% for x in row.seats %}
-        {% if x.seat.seat_number == 2 %}
-        <div class="seat">
-            <label class="seat-text" for=""> {{row.letter}}{{x.seat.seat_number}}</label>
-            {% if x.is_sold == True %}
-            <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check disabled" disabled>
+
+<div id="container-seats" class="container-seats">
+
+    <div class="header mb-3">
+        <h3>Seleccione su asiento</h3>
+        <p>Ruta: {{trip.route}}</p>
+        <p>Salida: {{trip.departure_time}}</p>
+        <p  >Asientos Seleccionados: </p><input name="selected-seats" id="selected-seats" style="border:none;"/>
+        <button class="btn btn-primary" hx-post="{% url 'payment-view' trip.id %}" hx-include="#selected-seats" hx-target="#container-seats" hx-swap="outerHTML">CONTINUAR</button>
+    </div>
+
+    {% for row in rows %}
+    <div class="row">
+        
+        {% if row.count == 4 %}
+        {% for x in row.seats %}
+            {% if x.seat.seat_number == 2 %}
+            <div class="seat">
+                <label class="seat-text" for=""> {{row.letter}}{{x.seat.seat_number}}</label>
+                {% if x.is_sold == True %}
+                <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check disabled" disabled>
+                {% else %}
+                <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check" >
+                {% endif %}
+                
+            </div>
+            <div class="seat">
+                <input class="hide" type="checkbox"   class="seat-check hidden">
+                <label   class="seat-text" for=""></label>
+            </div>
             {% else %}
-            <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check">
+            <div class="seat">
+                {% if x.is_sold == True %}
+                <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
+                {% else %}
+                <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check">
+                {% endif %}
+                <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
+            </div>
             {% endif %}
-            
-        </div>
-        <div class="seat">
-            <input class="hide" type="checkbox"   class="seat-check hidden">
-            <label   class="seat-text" for=""></label>
-        </div>
+            {% endfor %}
         {% else %}
-        <div class="seat">
-            {% if x.is_sold == True %}
-            <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
-            {% else %}
-            <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check">
-            {% endif %}
-            <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
-        </div>
+        {% for x in row.seats %}
+            <div class="seat ">
+                {% if x.is_sold == True %}
+                <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
+                {% else %}
+                <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check">
+                {% endif %}
+                <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
+            </div>
+            {% endfor %}
+
         {% endif %}
-        {% endfor %}
-    {% else %}
-    {% for x in row.seats %}
-        <div class="seat ">
-            {% if x.is_sold == True %}
-            <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"   class="seat-check disabled" disabled>
-            {% else %}
-            <input  type="checkbox" id="{{row.letter}}{{x.seat.seat_number}}"  class="seat-check">
-            {% endif %}
-            <label class="seat-text"> {{row.letter}}{{x.seat.seat_number}}</label>
-        </div>
-        {% endfor %}
 
-    {% endif %}
-
-</div>
+    </div>
 
 
 {% endfor %}
+
+</div>
+
 
 <script>
 
     
 
     const buttonSelected = e => {
-        //console.log(e.target.id);
         //Check if there is at least one check button selected
         const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
         console.log(checkedBoxes);
@@ -85,20 +91,16 @@
             
         }
         var paragraph = document.getElementById("selected-seats");
-        var text = document.createTextNode(selectedSeats);
-        paragraph.innerText = selectedSeats;
+        paragraph.value = selectedSeats;
         selectedSeats = "";
     
     }
     console.log(document.querySelectorAll('input[type=checkbox].seat-check'))
-    document.querySelectorAll('input[type=checkbox].seat-check').forEach(e => e.addEventListener('click',buttonSelected))
+    document.querySelectorAll('input[type=checkbox].seat-check').forEach(e => {
+        //e.preventDefault();
+        e.addEventListener('click',buttonSelected)
+    })
     
-    
-    // for (check of checks) {
-    //     check.addEventListener("click", buttonPressed);
-    // }
     </script>
     
-
-
 {% endblock content %}

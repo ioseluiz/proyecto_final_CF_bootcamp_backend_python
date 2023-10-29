@@ -12,6 +12,9 @@ urlpatterns = [
     path("trips/<int:pk>/delete",views.delete_trip, name="trip-delete"),
     # Seat selection
     path("trips/<int:pk>/seats",views.select_seat,name="select-seat"),
+    # Pay tickets
+    path("trips/<int:pk>/payment",views.payment_view, name="payment-view"),
+    path("trips/<int:pk>/recipe",views.recipe_view,name="recipe-view"),
     
 
 ]

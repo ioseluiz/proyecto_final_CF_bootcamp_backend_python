@@ -138,5 +138,76 @@ def select_seat(request, pk):
     context['rows'] = rows
     return render(request, "trips/seat-selection.html", context)
 
+def payment_view(request, pk):
+    context = {}
+    # Get Trip
+    trip = Trip.objects.get(id=pk)
+    seats_string = request.POST.get('selected-seats')
+    selected_seats =seats_string.split(",")
+    data_seats = []
+    total_price = 0
+    for seat in selected_seats:
+      info = {
+          "row": seat[0],
+          "number": seat[1:],
+          "price": trip.route.price,
+      }
+      total_price += trip.route.price
+      data_seats.append(info)
+    #print(data_seats)
+    context['seats'] = data_seats
+    context['total_price'] = total_price
+    context['date'] = trip.departure_time
+    context['route_origin'] = trip.route.origin
+    context['route_destination'] = trip.route.destination
+    context['trip_id'] = pk
+    context['seats_string'] = seats_string
+
+    
+
+    return render(request, 'trips/components/payment.html', context)
+
+
+def recipe_view(request, pk):
+    context = {}
+    # Get Trip
+    trip = Trip.objects.get(id=pk)
+    # Read seats-string
+    seats_string = request.POST.get('seats')
+    selected_seats =seats_string.split(",")
+    data_seats = []
+    total_price = 0
+    for seat in selected_seats:
+      info = {
+          "row": seat[0],
+          "number": seat[1:],
+          "price": trip.route.price,
+      }
+      total_price += trip.route.price
+      data_seats.append(info)
+
+    # Update is_sold in SeatTrip
+    seats_objects = SeatTrip.objects.filter(trip=trip)
+    print(seats_objects)
+    for seat in data_seats:
+        print(seat['row'])
+        bought_seat = seats_objects.filter(seat__row=seat['row']).filter(seat__seat_number=seat['number'])
+        print(bought_seat)
+        bought_seat.update(is_sold=True)
+        print('Seat Updated...')
+
+    
+
+    context['seats'] = data_seats
+    context['total_price'] = total_price
+    context['date'] = trip.departure_time
+    context['route_origin'] = trip.route.origin
+    context['route_destination'] = trip.route.destination
+    context['trip_id'] = pk
+    context['seats_string'] = seats_string
+
+
+    return render(request, 'trips/components/recipe.html', context)
+
 
 
