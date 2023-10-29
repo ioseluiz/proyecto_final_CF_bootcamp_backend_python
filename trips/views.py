@@ -205,6 +205,7 @@ def recipe_view(request, pk):
     context['route_destination'] = trip.route.destination
     context['trip_id'] = pk
     context['seats_string'] = seats_string
+    context['date'] = datetime.now()
 
 
     return render(request, 'trips/components/recipe.html', context)
