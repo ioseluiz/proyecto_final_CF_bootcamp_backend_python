@@ -1,7 +1,10 @@
+import uuid
 from datetime import timedelta
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.utils.timezone import now
+
+from accounts.models import CustomUser
 
 BUS_TYPES = (
     (53,53),
@@ -79,15 +82,32 @@ class Trip(models.Model):
     def __str__(self):
         return f"Trip: {self.bus.license_plate} - {self.departure_time} for Route {self.route}"
     
+class Order(models.Model):
+    order_number = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True, editable=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    number_seats = models.PositiveIntegerField()
+    total_price = models.FloatField()
+    created_at= models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return f"{self.order_number}"
+
 class SeatTrip(models.Model):
     seat = models.ForeignKey(Seat,on_delete=models.CASCADE, related_name="seat_bus")
     trip = models.ForeignKey(Trip,on_delete=models.CASCADE, related_name="trip_seat")
     is_sold = models.BooleanField(default=False)
+    order = models.ForeignKey(Order,on_delete=models.CASCADE, related_name="order_seat_trip",blank=True,null=True)
     created_at= models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.trip.departure_time}, Route: {self.trip.route.origin}-{self.trip.route.destination}"
+    
+
+
+
 
 
 

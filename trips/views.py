@@ -1,9 +1,10 @@
+import uuid
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from .models import Trip, SeatTrip, Route, Bus
+from .models import Trip, SeatTrip, Route, Bus, Order
 
 from .forms import SearchForm
 
@@ -70,11 +71,6 @@ def trips_admin_view(request):
     return render(request, 'trips/admin_trips.html',context)
 
 
-def get_trip(request):
-    pass
-    
-
-
 def create_trip(request):
     context = {}
     if request.POST:
@@ -124,7 +120,7 @@ def select_seat(request, pk):
     rows_letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M"]
     for row in rows_letters:
         seat_trip = SeatTrip.objects.filter(trip=trip)
-        result = seat_trip.filter(seat__row=row)
+        result = seat_trip.filter(seat__row=row).order_by('seat__seat_number')
         #print(result)
         for re in result:
             if re.is_sold:
@@ -178,6 +174,7 @@ def recipe_view(request, pk):
     # Read seats-string
     seats_string = request.POST.get('seats')
     selected_seats =seats_string.split(",")
+    number_seats = len(selected_seats)
     data_seats = []
     total_price = 0
     for seat in selected_seats:
@@ -198,6 +195,11 @@ def recipe_view(request, pk):
         print(bought_seat)
         bought_seat.update(is_sold=True)
         print('Seat Updated...')
+
+    # Create Order
+    Order.objects.create(order_number=uuid.uuid4(), user=request.user, 
+                         total_price=total_price,
+                       number_seats=number_seats)
 
     
 
