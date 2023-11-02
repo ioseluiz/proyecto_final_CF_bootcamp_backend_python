@@ -9,7 +9,7 @@
 
 <div class="container">
     <h3>Trips Admin Panel</h3>
-    <form action="" method="post" hx-post="{% url 'trip-create' %}"
+    <form action="" id="form-data" method="post" hx-post="{% url 'trip-create' %}"
     hx-target="#table-trips" hx-swap="outerHTML">
         <div class="mb-3">
             <label for="" class="form-label">Date & Time</label>
@@ -54,6 +54,10 @@
                 <td>{{ trip.route }}</td>
                 <td>{{ trip.bus }}</td>
                 <td><i class="fa fa-pencil btn btn-primary"
+                       hx-put="{% url 'trip-update' trip.id %}"
+                       hx-target="#table-trips"
+                       hx-include="#form-data"
+                       hx-swap="outerHTML"
                        aria-hidden="true"></i>
                     <i class="fa fa-trash btn btn-danger" 
                        hx-delete="{% url 'trip-delete' trip.id %}"

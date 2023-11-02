@@ -95,13 +95,17 @@ def create_trip(request):
 def update_trip(request, pk):
     print(pk)
     context = {}
+    if request.method == 'PUT':
+        print(request)
+        print(request.body)
     try:
         trip = Trip.objects.get(id=pk)
     except:
         raise "Trip not found"
     
     context['trip'] = trip
-    return render(request, 'trips/components/trip_edit.html',context)
+
+    return render(request, 'trips/components/table-trips.html',context)
 
 def delete_trip(request, pk):
     Trip.objects.get(id=pk).delete()
