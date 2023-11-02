@@ -1,6 +1,6 @@
-import uuid
+import uuid, json
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import QueryDict
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 
@@ -25,8 +25,6 @@ def search_results_view(request, *args, **kwargs):
     date_requested = request.POST.get('date') #str
     # Convert str to datetime
     date_requested = datetime.strptime(date_requested,"%Y-%m-%d").date()
-    #print(date_requested)
-    #print(type(date_requested))
     # Get route from terminal_from and terminal_to
     route = Route.objects.get(origin=terminal_from, destination=terminal_to)
     #print(route)
@@ -54,10 +52,6 @@ def search_results_view(request, *args, **kwargs):
 
     return render(request, 'trips/components/trips-list-elements.html', context)
 
-
-# CRUD Model Route
-
-
 # CRUD Model Trips
 @user_passes_test(lambda user: user.is_superuser)
 def trips_admin_view(request):
@@ -76,11 +70,9 @@ def create_trip(request):
     if request.POST:
         # Read parameters
         trip_datetime = request.POST.get('trip_datetime') #str
-        print(trip_datetime)
         trip_datetime = datetime.strptime(trip_datetime, '%Y-%m-%dT%H:%M')
         trip_route = request.POST.get('trip_route')
         trip_route = Route.objects.get(id=trip_route)
-        print(trip_route)
         trip_bus = request.POST.get('trip_bus')
         trip_bus = Bus.objects.get(id=trip_bus)
         Trip.objects.create(departure_time=trip_datetime,
@@ -97,13 +89,25 @@ def update_trip(request, pk):
     context = {}
     if request.method == 'PUT':
         print(request)
-        print(request.body)
+        body_unicode = request.body.decode('utf-8')
+        print(body_unicode)
+        #parse body parameters
+        put = QueryDict(request.body)
+        trip_datetime = put.get("trip_datetime")
+        trip_route = put.get("trip_route")
+        trip_bus = put.get("trip_bus")
+        
     try:
-        trip = Trip.objects.get(id=pk)
+        Trip.objects.filter(id=pk).update(
+        departure_time=trip_datetime,
+        route=trip_route,
+        bus=trip_bus,
+    )
     except:
         raise "Trip not found"
     
-    context['trip'] = trip
+    trips = Trip.objects.all().order_by('departure_time')
+    context = { 'trips': trips }
 
     return render(request, 'trips/components/table-trips.html',context)
 
@@ -204,8 +208,6 @@ def recipe_view(request, pk):
     Order.objects.create(order_number=uuid.uuid4(), user=request.user, 
                          total_price=total_price,
                        number_seats=number_seats)
-
-    
 
     context['seats'] = data_seats
     context['total_price'] = total_price

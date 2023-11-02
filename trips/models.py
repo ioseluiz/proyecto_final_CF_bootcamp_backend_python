@@ -40,7 +40,7 @@ class Seat(models.Model):
     
 
     def __str__(self):
-        return f"Seat No. {self.row}-{self.seat_number}"
+        return f"Bus:{ self.bus.license_plate} Seat No. {self.row}-{self.seat_number}"
     
 
 
