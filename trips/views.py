@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 from .models import Trip, SeatTrip, Route, Bus, Order
+from .utils import convert_seat_data, get_total_price, group_seats_by_row
 
 from .forms import SearchForm
 
@@ -122,24 +123,8 @@ def select_seat(request, pk):
     context = {}
     row_seat = {}
     rows = []
-    
     trip = Trip.objects.get(id=pk)
-    # Get the tickets for the trip
-    rows_letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M"]
-    for row in rows_letters:
-        seat_trip = SeatTrip.objects.filter(trip=trip)
-        result = seat_trip.filter(seat__row=row).order_by('seat__seat_number')
-        #print(result)
-        for re in result:
-            if re.is_sold:
-                print(f"{re.trip.departure_time}:{re.seat}")
-        info = {
-            'seats':result,
-            'count': len(result),
-            'letter': row,
-        }
-        rows.append(info)
-    
+    rows = group_seats_by_row(trip)
     context['trip'] = trip
     context['rows'] = rows
     return render(request, "trips/seat-selection.html", context)
@@ -151,17 +136,12 @@ def payment_view(request, pk):
     trip = Trip.objects.get(id=pk)
     seats_string = request.POST.get('selected-seats')
     selected_seats =seats_string.split(",")
-    data_seats = []
-    total_price = 0
-    for seat in selected_seats:
-      info = {
-          "row": seat[0],
-          "number": seat[1:],
-          "price": trip.route.price,
-      }
-      total_price += trip.route.price
-      data_seats.append(info)
-    #print(data_seats)
+   
+    #Convert Seat Data
+    data_seats = convert_seat_data(trip, selected_seats)
+    total_price = get_total_price(data_seats)
+
+    #Context Data
     context['seats'] = data_seats
     context['total_price'] = total_price
     context['date'] = trip.departure_time
@@ -169,8 +149,6 @@ def payment_view(request, pk):
     context['route_destination'] = trip.route.destination
     context['trip_id'] = pk
     context['seats_string'] = seats_string
-
-    
 
     return render(request, 'trips/components/payment.html', context)
 
@@ -184,16 +162,11 @@ def recipe_view(request, pk):
     selected_seats =seats_string.split(",")
     number_seats = len(selected_seats)
     data_seats = []
-    total_price = 0
-    for seat in selected_seats:
-      info = {
-          "row": seat[0],
-          "number": seat[1:],
-          "price": trip.route.price,
-      }
-      total_price += trip.route.price
-      data_seats.append(info)
 
+    #Convert Seat Data
+    data_seats = convert_seat_data(trip, selected_seats)
+    total_price = get_total_price(data_seats)
+    
     # Update is_sold in SeatTrip
     seats_objects = SeatTrip.objects.filter(trip=trip)
     print(seats_objects)
@@ -208,7 +181,8 @@ def recipe_view(request, pk):
     Order.objects.create(order_number=uuid.uuid4(), user=request.user, 
                          total_price=total_price,
                        number_seats=number_seats)
-
+    
+    #Context Data
     context['seats'] = data_seats
     context['total_price'] = total_price
     context['date'] = trip.departure_time
@@ -218,8 +192,4 @@ def recipe_view(request, pk):
     context['seats_string'] = seats_string
     context['date'] = datetime.now()
 
-
     return render(request, 'trips/components/recipe.html', context)
-
-
-
