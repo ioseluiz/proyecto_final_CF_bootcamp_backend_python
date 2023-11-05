@@ -5,15 +5,16 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('trips', '0005_alter_seattrip_order'),
+        ("trips", "0005_alter_seattrip_order"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='order',
-            name='order_number',
-            field=models.UUIDField(db_index=True, default=uuid.uuid4, editable=False, unique=True),
+            model_name="order",
+            name="order_number",
+            field=models.UUIDField(
+                db_index=True, default=uuid.uuid4, editable=False, unique=True
+            ),
         ),
     ]

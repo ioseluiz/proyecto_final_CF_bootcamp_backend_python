@@ -1,8 +1,4 @@
-body {
-    color: #fff;
-    background: #008080;
-    font-family: 'Roboto', sans-serif;
-}
+
 
 .form-control, .form-control:focus, .input-group-text {
     border-color: #e1e1e1;
@@ -92,14 +88,8 @@ body {
     font-size:7px;
     left: 16px;
     top: 19px;
+
 }
 .signup-form .fa-paper-plane {
     font-size: 20px;
 }
-/* .signup-form .fa-check {
-    color: #fff;
-    left: 17px;
-    top: 18px;
-    font-size: 7px;
-    position: absolute;
-} */

@@ -9,9 +9,11 @@
     font-family: 'Archivo', serif;
 }
 
-html, body {
+/* html, body {
     font-family: 'Barlow', sans-serif;
-}
+    color: #fff;
+   
+} */
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #008080;

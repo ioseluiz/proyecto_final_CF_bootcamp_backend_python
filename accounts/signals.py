@@ -8,14 +8,13 @@ from accounts.models import CustomUser, Profile
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-        print('user profile is created')
+        print("user profile is created")
     else:
         try:
-
             profile = Profile.objects.get(user=instance)
             profile.save()
         except:
             # Create the user profile if not exist
             Profile.objects.create(user=instance)
-            print('Profile did not exist, but I created one.')
-        print('user is updated')
+            print("Profile did not exist, but I created one.")
+        print("user is updated")

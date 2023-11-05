@@ -1,13 +1,13 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block title %}Sign Up{% endblock title %}
-{% block custom_style %}
-<link rel="stylesheet" href="{% static 'css/register/signup.css' %}">
-{% endblock custom_style %}
+<!-- {% block custom_style %}
+
+{% endblock custom_style %} -->
 {% block content %}
 
 <div class="signup-form">
-    <form method="post">
+    <form method="post" p-2>
         {% csrf_token %}
         <h2>Registro</h2>
 		<p>Por favor llena el formulario para crear una cuenta!</p>
@@ -52,9 +52,6 @@
 			</div>
         </div>
 
-        <div class="form-group">
-			<label class="checkbox-inline"><input type="checkbox" required="required"> Acepto los <a href="#">Terminos de Uso</a> y <a href="#">Politicas de Privacidad.</a></label>
-		</div>
 		<div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
         </div>

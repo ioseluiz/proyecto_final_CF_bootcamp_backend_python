@@ -5,10 +5,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # admin
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # User management
-    path('accounts/', include('accounts.urls')),
-    path('accounts/',include('django.contrib.auth.urls')),
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     # Local apps
-    path('',include('trips.urls')),
+    path("", include("trips.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

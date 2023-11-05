@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Terminal, Route,Trip, Bus, Seat, Company, SeatTrip
+from .models import Terminal, Route, Trip, Bus, Seat, Company, SeatTrip
 
 admin.site.register(Terminal)
 admin.site.register(Route)

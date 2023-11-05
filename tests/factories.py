@@ -3,6 +3,7 @@ import factory
 from accounts.models import CustomUser
 from trips.models import Route, Terminal
 
+
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = CustomUser
@@ -19,6 +20,3 @@ class TerminalFactory(factory.django.DjangoModelFactory):
         model = Terminal
 
     name = "TestName"
-
-
-    

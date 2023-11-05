@@ -1,8 +1,10 @@
 # Bus Tickets E-commerce app
 
+Web App for buying online bus tickets.
+
 ## Introduction
 
-
+This project was developed as the final work of Codigo Facilito's Python Backend Bootcamp.
 
 ## Setup
 

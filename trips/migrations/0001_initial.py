@@ -6,100 +6,208 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Bus',
+            name="Bus",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('license_plate', models.CharField(max_length=6, unique=True, validators=[django.core.validators.MinLengthValidator(4)])),
-                ('total_seats', models.PositiveIntegerField()),
-                ('brand', models.CharField(max_length=30)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "license_plate",
+                    models.CharField(
+                        max_length=6,
+                        unique=True,
+                        validators=[django.core.validators.MinLengthValidator(4)],
+                    ),
+                ),
+                ("total_seats", models.PositiveIntegerField()),
+                ("brand", models.CharField(max_length=30)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Company',
+            name="Company",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, unique=True)),
-                ('phone_number', models.CharField(max_length=8)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=30, unique=True)),
+                ("phone_number", models.CharField(max_length=8)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Route',
+            name="Route",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('distance', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('duration', models.DecimalField(decimal_places=1, max_digits=10)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("distance", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("duration", models.DecimalField(decimal_places=1, max_digits=10)),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Seat',
+            name="Seat",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('seat_number', models.PositiveIntegerField()),
-                ('row', models.CharField(max_length=1)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('bus', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bus_seat', to='trips.bus')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("seat_number", models.PositiveIntegerField()),
+                ("row", models.CharField(max_length=1)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                (
+                    "bus",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="bus_seat",
+                        to="trips.bus",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Terminal',
+            name="Terminal",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=30)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Trip',
+            name="Trip",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('departure_time', models.DateTimeField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('bus', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bus_assignes', to='trips.bus')),
-                ('route', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='trip_route', to='trips.route')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("departure_time", models.DateTimeField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                (
+                    "bus",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="bus_assignes",
+                        to="trips.bus",
+                    ),
+                ),
+                (
+                    "route",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="trip_route",
+                        to="trips.route",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SeatTrip',
+            name="SeatTrip",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_sold', models.BooleanField(default=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('seat', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='seat_bus', to='trips.seat')),
-                ('trip', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='trip_seat', to='trips.trip')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_sold", models.BooleanField(default=False)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                (
+                    "seat",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="seat_bus",
+                        to="trips.seat",
+                    ),
+                ),
+                (
+                    "trip",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="trip_seat",
+                        to="trips.trip",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='route',
-            name='destination',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='terminal_destination', to='trips.terminal'),
+            model_name="route",
+            name="destination",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="terminal_destination",
+                to="trips.terminal",
+            ),
         ),
         migrations.AddField(
-            model_name='route',
-            name='origin',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='terminal_origin', to='trips.terminal'),
+            model_name="route",
+            name="origin",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="terminal_origin",
+                to="trips.terminal",
+            ),
         ),
         migrations.AddField(
-            model_name='bus',
-            name='company',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='owner_bus', to='trips.company'),
+            model_name="bus",
+            name="company",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="owner_bus",
+                to="trips.company",
+            ),
         ),
     ]
