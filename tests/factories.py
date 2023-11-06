@@ -20,3 +20,20 @@ class TerminalFactory(factory.django.DjangoModelFactory):
         model = Terminal
 
     name = "TestName"
+
+class Terminal1Factory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Terminal
+
+    name = "TestName1"
+
+class RouteFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Route
+
+    origin = factory.SubFactory(TerminalFactory)
+    distance = 370
+    duration = 5.0
+    price = 12.0
+
+
