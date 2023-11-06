@@ -16,13 +16,17 @@
             <td>{{ trip.route }}</td>
             <td>{{ trip.bus }}</td>
             <td><i class="fa fa-pencil btn btn-primary"
-                   aria-hidden="true"></i>
-                   
+                   aria-hidden="true"
+                   hx-put="{% url 'trip-update' trip.id %}"
+                   hx-target="#table-trips"
+                   hx-include="#form-data"
+                   hx-swap="outerHTML"></i>
                    
                 <i class="fa fa-trash btn btn-danger" 
-                   hx-delete="{% url 'trip-delete' trip.id %}"
-                   hx-target="#table-trips"
-                   hx-swap="outerHTML"
+                hx-delete="{% url 'trip-delete' trip.id %}"
+                hx-confirm="¿Esta seguro que desea borrar este viaje?"
+                hx-target="#table-trips"
+                hx-swap="outerHTML"
                    aria-hidden="true"></i>
             </td>
 
